@@ -12,18 +12,22 @@ def notifyOSX(head, body):
     command = "osascript -e 'display notification \"{}\" with title \"{}\"'".format(head, body)
     subprocess.call(command, shell=True)
 
-def notify(head, body):
-    if sys.platform == "linux" or sys.platform == "linux2":
-        raise NotImplementedError("Operating system not supported")
-    elif sys.platform == "darwin":
-        notifyOSX(head, body)
-    elif sys.platform == "win32":
-        raise NotImplementedError("Operating system not supported")
-    else:
-        raise NotImplementedError("Operating system not supported")
+def notifyLinux(head, body):
+    command = "notify-send '{}' '{}'".format(head, body)
+    subprocess.call(command, shell=True)
+
+def notifyWin32(head, body):
+    raise NotImplementedError("Operating system not supported")
 
 if __name__ == '__main__':
+    platformCall = {
+        "linux": notifyLinux,
+        "linux2": notifyLinux,
+        "win32": notifyWin32,
+        "darwin": notifyOSX
+    }
+
     print "PID = {}".format(os.getpid())
     while 1:
-        notify(sys.argv[1], sys.argv[2])
+        platformCall[sys.platform](sys.argv[1], sys.argv[2])
         time.sleep(float(sys.argv[3]))
