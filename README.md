@@ -1,7 +1,3 @@
-# FileSystemConverter
+# Python Tools
 
-A simple python script that converts files created by one file system to another
-Example file created on windows file systems 'folder1\folder2\file.txt' 
-would become 'folder1/folder2/file.txt' on unix file systems
-
-Usage: python fs_converter.py /Users/dragan/Code/FileSystemConverter \\\\
+A collection of python tools and scripts, some increase your productivity, some are just for fun :)
